@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación de Madurez Digital Organizacional</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+  /* Primitive Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Maturity level colors */
+  --color-level-1: #C01527;
+  --color-level-2: #E68161;
+  --color-level-3: #D2BA4C;
+  --color-level-4: #7FB069;
+  --color-level-5: #2D7D46;
+
+  --color-level-1-light: rgba(192, 21, 47, 0.1);
+  --color-level-2-light: rgba(230, 129, 97, 0.1);
+  --color-level-3-light: rgba(210, 186, 76, 0.1);
+  --color-level-4-light: rgba(127, 176, 105, 0.1);
+  --color-level-5-light: rgba(45, 125, 70, 0.1);
+
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-level-5);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(167, 169, 169, 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-card-border: rgba(119, 124, 124, 0.2);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-24);
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+.welcome-screen, .weight-screen, .lead-capture-screen {
+  text-align: center;
+  max-width: 600px;
+  margin: 80px auto;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--space-32);
+  background: var(--color-primary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: var(--color-btn-primary-text);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-16);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-24);
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-16);
+}
+
+.subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-40);
+  line-height: 1.6;
+}
+
+.info-box {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  margin-bottom: var(--space-32);
+  text-align: left;
+}
+
+.info-box h3 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-12);
+}
+
+.info-box ul {
+  list-style: none;
+  margin-top: var(--space-16);
+}
+
+.info-box li {
+  padding: var(--space-8) 0;
+  padding-left: var(--space-24);
+  position: relative;
+}
+
+.info-box li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.form-group {
+  margin-bottom: var(--space-24);
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-8);
+  font-size: var(--font-size-base);
+}
+
+input[type="text"], input[type="email"], input[type="number"], input[type="tel"] {
+  width: 100%;
+  padding: var(--space-12) var(--space-16);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  transition: border-color var(--duration-fast);
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="tel"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-32);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+  font-family: var(--font-family-base);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.btn-primary:active {
+  background: var(--color-primary-active);
+}
+
+.btn-secondary {
+  background: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.btn-secondary:hover {
+  background: var(--color-secondary-hover);
+}
+
+.btn-secondary:active {
+  background: var(--color-secondary-active);
+}
+
+.btn-large {
+  padding: var(--space-16) var(--space-40);
+  font-size: var(--font-size-lg);
+}
+
+.progress-container {
+  margin-bottom: var(--space-32);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.progress-bar-outer {
+  width: 100%;
+  height: 8px;
+  background: var(--color-secondary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-inner {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width var(--duration-normal) var(--ease-standard);
+  border-radius: var(--radius-full);
+}
+
+.question-card, .weight-config-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  margin-bottom: var(--space-24);
+  box-shadow: var(--shadow-sm);
+}
+
+.dimension-badge {
+  display: inline-block;
+  padding: var(--space-6) var(--space-16);
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-16);
+}
+
+.question-text {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-24);
+  color: var(--color-text);
+}
+
+/* Weight Config Styles */
+.weight-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-16);
+}
+
+.weight-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-12);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-base);
+    transition: border-color var(--duration-fast);
+}
+
+.weight-item:focus-within {
+    border-color: var(--color-primary);
+}
+
+.weight-item span {
+    font-weight: var(--font-weight-medium);
+}
+
+.weight-input {
+    width: 60px;
+    padding: var(--space-8) var(--space-12);
+    text-align: right;
+    font-size: var(--font-size-base);
+}
+
+.weight-summary {
+    margin-top: var(--space-24);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: var(--font-weight-semibold);
+    background: rgba(var(--color-teal-500-rgb), 0.1);
+}
+
+#weightError {
+    color: var(--color-error);
+    font-weight: var(--font-weight-bold);
+    margin-left: var(--space-16);
+}
+
+/* Lead Capture Screen Specifics */
+.capture-form {
+    text-align: left;
+    margin-top: var(--space-32);
+}
+.capture-form .form-group {
+    margin-bottom: var(--space-16);
+}
+#formError {
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-16);
+    display: none;
+}
+
+
+/* Existing Styles for Assessment and Results Screens */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.option {
+  position: relative;
+}
+
+.option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.option label {
+  display: block;
+  padding: var(--space-16) var(--space-20);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  font-weight: var(--font-weight-normal);
+}
+
+.option input[type="radio"]:checked + label {
+  border-color: var(--color-primary);
+  background: rgba(var(--color-teal-500-rgb), 0.05);
+}
+
+.option label:hover {
+  border-color: var(--color-primary);
+  background: rgba(var(--color-teal-500-rgb), 0.02);
+}
+
+.option.level-1 input[type="radio"]:checked + label {
+  border-color: var(--color-level-1);
+  background: var(--color-level-1-light);
+}
+
+.option.level-2 input[type="radio"]:checked + label {
+  border-color: var(--color-level-2);
+  background: var(--color-level-2-light);
+}
+
+.option.level-3 input[type="radio"]:checked + label {
+  border-color: var(--color-level-3);
+  background: var(--color-level-3-light);
+}
+
+.option.level-4 input[type="radio"]:checked + label {
+  border-color: var(--color-level-4);
+  background: var(--color-level-4-light);
+}
+
+.option.level-5 input[type="radio"]:checked + label {
+  border-color: var(--color-level-5);
+  background: var(--color-level-5-light);
+}
+
+.level-indicator {
+  display: inline-block;
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  margin-right: var(--space-8);
+}
+
+.level-1 .level-indicator {
+  background: var(--color-level-1);
+  color: white;
+}
+
+.level-2 .level-indicator {
+  background: var(--color-level-2);
+  color: white;
+}
+
+.level-3 .level-indicator {
+  background: var(--color-level-3);
+  color: white;
+}
+
+.level-4 .level-indicator {
+  background: var(--color-level-4);
+  color: white;
+}
+
+.level-5 .level-indicator {
+  background: var(--color-level-5);
+  color: white;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-16);
+  margin-top: var(--space-32);
+}
+
+.navigation .btn {
+  flex: 1;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: var(--space-48);
+}
+
+.overall-score {
+  display: inline-block;
+  background: var(--color-surface);
+  border: 2px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  margin: var(--space-24) 0;
+}
+
+.score-value {
+  font-size: 72px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: var(--space-8);
+}
+
+.score-label {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-16);
+}
+
+.maturity-level-badge {
+  display: inline-block;
+  padding: var(--space-12) var(--space-24);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: white;
+}
+
+.chart-container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  margin-bottom: var(--space-32);
+}
+
+.chart-wrapper {
+  position: relative;
+  height: 400px;
+  margin-top: var(--space-24);
+}
+
+.dimension-scores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+}
+
+.dimension-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-20);
+}
+
+.dimension-card h4 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-12);
+  color: var(--color-text);
+}
+
+.dimension-score-bar {
+  height: 8px;
+  background: var(--color-secondary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: var(--space-8);
+}
+
+.dimension-score-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--duration-normal) var(--ease-standard);
+}
+
+.dimension-score-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.insights-section {
+  margin-bottom: var(--space-32);
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-24);
+  margin-bottom: var(--space-32);
+}
+
+.insight-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+}
+
+.insight-card.strengths {
+  border-left: 4px solid var(--color-level-5);
+}
+
+.insight-card.improvements {
+  border-left: 4px solid var(--color-level-2);
+}
+
+.insight-card h3 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-16);
+}
+
+.insight-list {
+  list-style: none;
+}
+
+.insight-list li {
+  padding: var(--space-8) 0;
+  padding-left: var(--space-24);
+  position: relative;
+  font-size: var(--font-size-base);
+}
+
+.insight-list.strengths li:before {
+  content: "★";
+  position: absolute;
+  left: 0;
+  color: var(--color-level-5);
+  font-weight: var(--font-weight-bold);
+}
+
+.insight-list.improvements li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--color-level-2);
+  font-weight: var(--font-weight-bold);
+}
+
+.recommendations {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  margin-bottom: var(--space-32);
+}
+
+.recommendation-item {
+  padding: var(--space-20);
+  border-left: 3px solid var(--color-primary);
+  margin-bottom: var(--space-16);
+  background: rgba(var(--color-teal-500-rgb), 0.03);
+  border-radius: var(--radius-sm);
+}
+
+.recommendation-item h4 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-8);
+  color: var(--color-primary);
+}
+
+.recommendation-item p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-16);
+  justify-content: center;
+  margin-top: var(--space-40);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-16);
+  }
+  
+  h1 {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .chart-wrapper {
+    height: 300px;
+  }
+  
+  .dimension-scores {
+    grid-template-columns: 1fr;
+  }
+  
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .navigation {
+    flex-direction: column;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+  
+  .weight-list {
+    grid-template-columns: 1fr;
+  }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="welcomeScreen" class="screen active">
+            <div class="welcome-screen">
+                <div class="logo">📊</div>
+                <h1>Evaluación de Madurez Digital Organizacional</h1>
+                <p class="subtitle">Evalúe el nivel de transformación digital de su organización a través de **11 dimensiones clave** y obtenga recomendaciones personalizadas para avanzar en su camino hacia la excelencia digital.</p>
+                
+                <div class="info-box">
+                    <h3>Esta evaluación incluye:</h3>
+                    <ul>
+                        <li>41 preguntas estratégicas</li>
+                        <li>11 dimensiones de madurez digital (incluyendo Coherencia y Estructura)</li>
+                        <li>Ponderación ajustable para contextualizar su diagnóstico</li>
+                        <li>Análisis detallado con visualizaciones</li>
+                    </ul>
+                </div>
+                
+                <div class="form-group">
+                    <label for="organizationName">Nombre de su Organización</label>
+                    <input type="text" id="organizationName" placeholder="Ingrese el nombre de su organización">
+                </div>
+                
+                <button class="btn btn-primary btn-large" onclick="goToWeightScreen()">Siguiente: Ajustar Prioridades</button>
+            </div>
+        </div>
+
+        <div id="weightScreen" class="screen">
+            <div class="weight-screen">
+                <h2>Ajustar la Ponderación del Diagnóstico</h2>
+                <p class="subtitle">Personalice el impacto de cada dimensión en su puntuación final. Use los pesos predeterminados o ajústelos para reflejar lo que es más crítico para su industria (la suma total debe ser **100%**).</p>
+                
+                <div class="weight-config-card">
+                    <div id="weightListContainer" class="weight-list">
+                        </div>
+                    
+                    <div id="weightSummary" class="weight-summary">
+                        <span>Suma Total: <span id="currentTotalWeight">0</span>%</span>
+                        <span id="weightError" style="display:none;">¡Debe sumar 100%!</span>
+                    </div>
+
+                    <div class="navigation" style="margin-top: 32px;">
+                        <button class="btn btn-secondary" onclick="showScreen('welcomeScreen')">← Anterior</button>
+                        <button class="btn btn-primary" onclick="startAssessment()" id="startAssessmentBtn" disabled>Iniciar Evaluación (41 Preguntas) →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="assessmentScreen" class="screen">
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span id="progressText">Pregunta 1 de 41</span>
+                    <span id="dimensionText">Estrategia Digital</span>
+                </div>
+                <div class="progress-bar-outer">
+                    <div id="progressBar" class="progress-bar-inner" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div id="questionContainer" class="question-card">
+                </div>
+            
+            <div class="navigation">
+                <button class="btn btn-secondary" onclick="previousQuestion()" id="prevBtn">← Anterior</button>
+                <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">Siguiente →</button>
+            </div>
+        </div>
+        
+        <div id="leadCaptureScreen" class="screen">
+            <div class="lead-capture-screen">
+                <div class="logo">🔒</div>
+                <h2>Su Diagnóstico está Listo</h2>
+                <p class="subtitle">¡Felicidades! Ha completado la evaluación. Para acceder a su **Reporte de Madurez Digital** personalizado (incluyendo gráficos y hoja de ruta de 3 prioridades), por favor complete el formulario a continuación.</p>
+                
+                <form id="leadForm" class="capture-form" action="/" method="POST" data-netlify="true">
+    </form>
+                    
+                    <input type="hidden" name="evaluation_data_json" id="hiddenEvaluationData">
+                    
+                    <input type="hidden" name="organization_name" id="hiddenOrganizationNameSubmit">
+
+                    <div class="form-group">
+                        <label for="fullName">Nombre Completo</label>
+                        <input type="text" id="fullName" name="full_name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico (Requerido)</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="companyName">Empresa</label>
+                        <input type="text" id="companyName" name="company_name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Teléfono (Opcional)</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <p id="formError" class="error-message">Por favor complete todos los campos requeridos.</p>
+                    
+                    <button type="submit" class="btn btn-primary btn-large" style="width: 100%;">Ver mi Reporte de Madurez →</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="resultsScreen" class="screen">
+            <div class="results-header">
+                <h1>Resultados de la Evaluación</h1>
+                <p class="subtitle" id="organizationNameDisplay"></p>
+                
+                <div class="overall-score">
+                    <div class="score-value" id="overallScore">0</div>
+                    <div class="score-label">Puntuación Global (0-100)</div>
+                    <div id="maturityLevelBadge" class="maturity-level-badge"></div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h2>Radar de Madurez por Dimensiones (11 Dimensiones)</h2>
+                <div class="chart-wrapper">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h2>Puntuación por Dimensión</h2>
+                <div class="chart-wrapper">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+            
+            <h2>Análisis Detallado por Dimensión</h2>
+            <div id="dimensionScores" class="dimension-scores">
+                </div>
+            
+            <div class="insights-grid">
+                <div class="insight-card strengths">
+                    <h3>Áreas de Fortaleza</h3>
+                    <ul id="strengthsList" class="insight-list strengths"></ul>
+                </div>
+                
+                <div class="insight-card improvements">
+                    <h3>Áreas de Mejora</h3>
+                    <ul id="improvementsList" class="insight-list improvements"></ul>
+                </div>
+            </div>
+            
+            <div class="recommendations">
+                <h2>Recomendaciones Priorizadas</h2>
+                <div id="recommendationsList"></div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-secondary" onclick="restartAssessment()">Nueva Evaluación</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Assessment data
+        const assessmentData = {
+            dimensions: [
+                {
+                    name: "Estrategia Digital",
+                    weight: 0.10, 
+                    questions: [
+                        { id: 1, text: "¿Tiene su organización una visión clara de transformación digital comunicada a todos los niveles?", options: [ { level: 1, text: "No existe estrategia digital formalizada" }, { level: 2, text: "Estrategia digital en desarrollo, no completamente documentada" }, { level: 3, text: "Estrategia digital documentada y comunicada a niveles directivos" }, { level: 4, text: "Estrategia integrada en plan de negocio con métricas de seguimiento" }, { level: 5, text: "Estrategia adaptativa con ciclos continuos de revisión e innovación" } ] },
+                        { id: 2, text: "¿En qué medida las iniciativas digitales están alineadas con los objetivos estratégicos del negocio?", options: [ { level: 1, text: "Las iniciativas son reactivas y aisladas" }, { level: 2, text: "Alineación parcial con algunos objetivos de negocio" }, { level: 3, text: "Buena alineación con objetivos documentados" }, { level: 4, text: "Alineación fuerte con métricas de impacto definidas" }, { level: 5, text: "Alineación perfecta con revisión continua del impacto" } ] },
+                        { id: 3, text: "¿Existe una hoja de ruta digital con hitos medibles y cronograma definido?", options: [ { level: 1, text: "No existe hoja de ruta estructurada" }, { level: 2, text: "Hoja de ruta parcial, con algunos hitos sin fecha clara" }, { level: 3, text: "Hoja de ruta documentada con hitos y cronograma definidos" }, { level: 4, text: "Hoja de ruta integral con revisiones trimestrales de progreso" }, { level: 5, text: "Hoja de ruta dinámica con ajustes según contexto" } ] },
+                        { id: 4, text: "¿Cómo prioriza su organización las inversiones en proyectos digitales?", options: [ { level: 1, text: "Basada principalmente en intuición o presión política" }, { level: 2, text: "Criterios básicos aplicados inconsistentemente" }, { level: 3, text: "Metodología de priorización documentada y consistente" }, { level: 4, text: "Modelo de priorización con análisis costo-beneficio y ROI" }, { level: 5, text: "Gobernanza avanzada de portafolio con análisis predictivo" } ] }
+                    ]
+                },
+                {
+                    name: "Cultura y Organización",
+                    weight: 0.10, 
+                    questions: [
+                        { id: 5, text: "¿Cómo describiría la apertura de su organización a experimentar con nuevas tecnologías?", options: [ { level: 1, text: "Muy resistente al cambio y muy aversión al riesgo" }, { level: 2, text: "Cierto interés pero con temores significativos" }, { level: 3, text: "Apertura general a experimentación con metodologías claras" }, { level: 4, text: "Experimentación sistemática con control de riesgos" }, { level: 5, text: "Innovación y experimentación integradas en la cultura" } ] },
+                        { id: 6, text: "¿Qué tan desarrollada está la colaboración interfuncional en iniciativas digitales?", options: [ { level: 1, text: "Colaboración mínima, silos departamentales fuertes" }, { level: 2, text: "Colaboración emergente con fricción entre departamentos" }, { level: 3, text: "Colaboración establecida con procesos de coordinación claros" }, { level: 4, text: "Colaboración fluida con equipos multidisciplinarios estructurados" }, { level: 5, text: "Colaboración integrada con conexión de objetivos globales" } ] },
+                        { id: 7, text: "¿El liderazgo demuestra compromiso visible con la transformación digital?", options: [ { level: 1, text: "Poco o nulo compromiso visible de la dirección" }, { level: 2, text: "Compromiso superficial sin recursos asignados" }, { level: 3, text: "Compromiso claro con gobernanza establecida" }, { level: 4, text: "Compromiso activo con participación en iniciativas clave" }, { level: 5, text: "Liderazgo transformacional modelando comportamientos digitales" } ] },
+                        { id: 8, text: "¿Existe tolerancia organizacional al fracaso como parte del aprendizaje?", options: [ { level: 1, text: "Los fallos se castigan fuertemente" }, { level: 2, text: "Tolerancia limitada y aprendizaje no sistematizado" }, { level: 3, text: "Tolerancia al fracaso en contextos de innovación" }, { level: 4, text: "Sistemas de aprendizaje formalizados de fracasos" }, { level: 5, text: "Cultura de experimentación con aprendizaje continuo" } ] }
+                    ]
+                },
+                {
+                    name: "Personas y Talento",
+                    weight: 0.08, 
+                    questions: [
+                        { id: 9, text: "¿Qué porcentaje de sus empleados posee competencias digitales avanzadas?", options: [ { level: 1, text: "Menos del 10% con competencias digitales básicas" }, { level: 2, text: "10-25% con competencias digitales intermedias" }, { level: 3, text: "25-50% con competencias digitales solidas" }, { level: 4, text: "50-75% con competencias digitales avanzadas" }, { level: 5, text: "Más del 75% con competencias digitales avanzadas" } ] },
+                        { id: 10, text: "¿Existen programas estructurados de capacitación digital?", options: [ { level: 1, text: "No hay programas formalmente de capacitación" }, { level: 2, text: "Capacitaciones puntuales sin estructura" }, { level: 3, text: "Programa de capacitación documentado y distribuido" }, { level: 4, text: "Programa integral con seguimiento de resultados" }, { level: 5, text: "Programa personalizado con aprendizaje continuo integrado" } ] },
+                        { id: 11, text: "¿Su organización puede atraer talento con habilidades especializadas digitales?", options: [ { level: 1, text: "Dificultad extrema para atraer talento digital" }, { level: 2, text: "Desafíos significativos en atracción de talento especializado" }, { level: 3, text: "Capacidad moderada de atracción de talento digital" }, { level: 4, text: "Buena reputación como empleador digital" }, { level: 5, text: "Referente en atracción de talento digital de alto nivel" } ] },
+                        { id: 12, text: "¿Cómo gestiona el cambio cuando implementa nuevas tecnologías?", options: [ { level: 1, text: "Sin gestión formal de cambio, implementación tecnocéntrica" }, { level: 2, text: "Gestión básica de cambio con comunicación limitada" }, { level: 3, text: "Programa de gestión de cambio estructurado" }, { level: 4, text: "Gestión integral con métricas de adopción" }, { level: 5, text: "Gestión del cambio como competencia central organizacional" } ] }
+                    ]
+                },
+                {
+                    name: "Tecnología e Infraestructura",
+                    weight: 0.12, 
+                    questions: [
+                        { id: 13, text: "¿Qué porcentaje de sus aplicaciones empresariales están en la nube?", options: [ { level: 1, text: "Menos del 10%, arquitectura legacy dominante" }, { level: 2, text: "10-30%, inicio de migración a cloud" }, { level: 3, text: "30-60%, infraestructura híbrida balanceada" }, { level: 4, text: "60-90%, arquitectura cloud-first" }, { level: 5, text: "Más del 90%, arquitectura completamente cloud-native" } ] },
+                        { id: 14, text: "¿Cómo calificaría el nivel de integración entre sus sistemas tecnológicos?", options: [ { level: 1, text: "Sistemas desconectados con silos de datos" }, { level: 2, text: "Algunas integraciones puntuales y frágiles" }, { level: 3, text: "Integración básica entre sistemas principales" }, { level: 4, text: "Integración robusta con APIs estandarizadas" }, { level: 5, text: "Plataforma integrada con arquitectura de microservicios" } ] },
+                        { id: 15, text: "¿Utiliza su organización tecnologías emergentes (IA, IoT, machine learning)?", options: [ { level: 1, text: "Uso mínimo o nulo de tecnologías emergentes" }, { level: 2, text: "Pilotos experimentales en tecnologías emergentes" }, { level: 3, text: "Implementación en áreas específicas de negocio" }, { level: 4, text: "Adopción extendida con casos de uso definidos" }, { level: 5, text: "Tecnologías emergentes integradas en operaciones core" } ] },
+                        { id: 16, text: "¿Qué tan automatizados están sus procesos de negocio críticos?", options: [ { level: 1, text: "Menos del 20% automatizado, altamente manual" }, { level: 2, text: "20-40% automatizado con automatización básica" }, { level: 3, text: "40-60% automatizado con RPA y herramientas estándar" }, { level: 4, text: "60-80% automatizado con IA y machine learning" }, { level: 5, text: "Más del 80% automatizado con inteligencia adaptativa" } ] }
+                    ]
+                },
+                {
+                    name: "Datos y Analítica",
+                    weight: 0.10, 
+                    questions: [
+                        { id: 17, text: "¿Existe una estrategia de gobernanza de datos formalizada?", options: [ { level: 1, text: "No existe política de gobernanza de datos" }, { level: 2, text: "Políticas de datos emergentes sin implementación completa" }, { level: 3, text: "Gobernanza documentada con responsables asignados" }, { level: 4, text: "Gobernanza integral con auditoría y cumplimiento" }, { level: 5, text: "Gobernanza avanzada con IA para control de calidad" } ] },
+                        { id: 18, text: "¿Qué tan accesibles son los datos para quienes toman decisiones?", options: [ { level: 1, text: "Datos no disponibles o muy difíciles de acceder" }, { level: 2, text: "Acceso limitado y con fricciones significativas" }, { level: 3, text: "Datos organizados con acceso a nivel directivo" }, { level: 4, text: "Plataforma de datos con dashboards en tiempo real" }, { level: 5, text: "Datos autoservicio accesibles a todos los niveles" } ] },
+                        { id: 19, text: "¿Qué nivel de analítica utiliza predominantemente?", options: [ { level: 1, text: "Descriptiva básica (reportes históricos)" }, { level: 2, text: "Descriptiva y diagnóstica (¿qué pasó y por qué?)" }, { level: 3, text: "Diagnóstica y predictiva (¿qué pasará?)" }, { level: 4, text: "Predictiva y prescriptiva (¿qué debo hacer?)" }, { level: 5, text: "Prescriptiva y cognitiva (IA con recomendaciones autónomas)" } ] },
+                        { id: 20, text: "¿En qué medida las decisiones estratégicas se basan en análisis de datos?", options: [ { level: 1, text: "Decisiones basadas principalmente en intuición" }, { level: 2, text: "Datos considerados pero no determinantes" }, { level: 3, text: "Datos como entrada importante en decisiones" }, { level: 4, text: "Decisiones principalmente data-driven" }, { level: 5, text: "Decisiones enteramente fundamentadas en evidencia analítica" } ] }
+                    ]
+                },
+                {
+                    name: "Procesos y Operaciones",
+                    weight: 0.10, 
+                    questions: [
+                        { id: 21, text: "¿Qué porcentaje de sus procesos operativos están digitalizados?", options: [ { level: 1, text: "Menos del 20%, muy manual" }, { level: 2, text: "20-40%, digitalización inicial" }, { level: 3, text: "40-60%, procesos híbridos" }, { level: 4, text: "60-80%, principalmente digital" }, { level: 5, text: "Más del 80%, totalmente digital" } ] },
+                        { id: 22, text: "¿Los procesos críticos están documentados con estándares formales (BPMN)?", options: [ { level: 1, text: "Procesos no documentados o documentación informal" }, { level: 2, text: "Documentación parcial y en diferentes formatos" }, { level: 3, text: "Procesos documentados en estándares formales" }, { level: 4, text: "Documentación integral con versioning y cambios controlados" }, { level: 5, text: "Documentación viva integrada con sistemas de ejecución" } ] },
+                        { id: 23, text: "¿Existe visibilidad en tiempo real del estado de procesos de negocio?", options: [ { level: 1, text: "No existe visibilidad" }, { level: 2, text: "Visibilidad limitada y con retrasos" }, { level: 3, text: "Visibilidad de procesos principales en tiempo diferido" }, { level: 4, text: "Dashboards con visibilidad en tiempo casi real" }, { level: 5, text: "Monitoreo inteligente con alertas predictivas" } ] },
+                        { id: 24, text: "¿Cómo calificaría la agilidad operacional de su organización?", options: [ { level: 1, text: "Muy rígida, ciclos largos de cambio" }, { level: 2, text: "Cierta flexibilidad pero con ciclos medianos" }, { level: 3, text: "Agilidad moderada con ciclos de dos semanas" }, { level: 4, text: "Altamente ágil con ciclos de una semana" }, { level: 5, text: "Extremadamente ágil con iteraciones continuas" } ] }
+                    ]
+                },
+                {
+                    name: "Experiencia del Cliente",
+                    weight: 0.10, 
+                    questions: [
+                        { id: 25, text: "¿Qué canales digitales ofrece para interacción con clientes?", options: [ { level: 1, text: "Presencia digital mínima, principalmente offline" }, { level: 2, text: "1-2 canales digitales básicos" }, { level: 3, text: "3-4 canales digitales integrados" }, { level: 4, text: "5+ canales digitales con soporte omnicanal" }, { level: 5, text: "Ecosistema digital completo con API de integración" } ] },
+                        { id: 26, text: "¿Puede personalizar experiencias según preferencias individuales de clientes?", options: [ { level: 1, text: "Experiencia genérica sin personalización" }, { level: 2, text: "Personalización básica (nombre, ubicación)" }, { level: 3, text: "Personalización moderada basada en historial" }, { level: 4, text: "Personalización avanzada con machine learning" }, { level: 5, text: "Personalización en tiempo real con IA predictiva" } ] },
+                        { id: 27, text: "¿Cómo calificaría la coherencia de experiencia entre canales físicos y digitales?", options: [ { level: 1, text: "Experiencias muy diferentes y desconectadas" }, { level: 2, text: "Alguna coherencia pero inconsistencias notorias" }, { level: 3, text: "Experiencia coherente entre canales principales" }, { level: 4, text: "Experiencia altamente integrada y fluida" }, { level: 5, text: "Experiencia seamless con cambio instantáneo entre canales" } ] },
+                        { id: 28, text: "¿Utiliza analítica para anticipar necesidades de clientes?", options: [ { level: 1, text: "No utiliza analítica para anticipar necesidades" }, { level: 2, text: "Análisis reactivo de retroalimentación de clientes" }, { level: 3, text: "Análisis predictivo en iniciativas específicas" }, { level: 4, text: "Modelo predictivo sistemático de necesidades" }, { level: 5, text: "Anticipación en tiempo real con recomendaciones proactivas" } ] }
+                    ]
+                },
+                {
+                    name: "Innovación",
+                    weight: 0.06, 
+                    questions: [
+                        { id: 29, text: "¿Su organización experimenta sistemáticamente con nuevas tecnologías?", options: [ { level: 1, text: "Sin programas de experimentación" }, { level: 2, text: "Experimentos aislados e informales" }, { level: 3, text: "Programas de pilotos estructurados" }, { level: 4, text: "Laboratorios de innovación con métricas de éxito" }, { level: 5, text: "Laboratorios de innovación avanzados con inversión dedicada" } ] },
+                        { id: 30, text: "¿Colabora con ecosistemas externos para innovación (startups, universidades)?", options: [ { level: 1, text: "No hay colaboración externa" }, { level: 2, text: "Colaboraciones esporádicas" }, { level: 3, text: "Colaboraciones formalizadas con seleccionados" }, { level: 4, text: "Red activa de colaboradores externos" }, { level: 5, text: "Ecosistema de innovación integrado y dinámico" } ] },
+                        { id: 31, text: "¿Qué porcentaje del presupuesto se destina a I+D digital?", options: [ { level: 1, text: "Menos del 1% del presupuesto" }, { level: 2, text: "1-2% del presupuesto" }, { level: 3, text: "2-3% del presupuesto" }, { level: 4, text: "3-5% del presupuesto" }, { level: 5, text: "Más del 5% del presupuesto" } ] }
+                    ]
+                },
+                {
+                    name: "Gobernanza Digital",
+                    weight: 0.07, 
+                    questions: [
+                        { id: 32, text: "¿Existe un rol ejecutivo dedicado a liderar la transformación digital (ej. CDO)?", options: [ { level: 1, text: "No existe rol dedicado" }, { level: 2, text: "Responsable asignado sin dedicación completa" }, { level: 3, text: "Líder de transformación con dedicación plena" }, { level: 4, text: "Líder con equipo multidisciplinario para la transformación" }, { level: 5, text: "Ecosistema de liderazgo digital distribuido" } ] },
+                        { id: 33, text: "¿Cómo se toman decisiones sobre inversiones en proyectos digitales?", options: [ { level: 1, text: "Decisiones ad-hoc sin proceso formal" }, { level: 2, text: "Proceso básico con participantes limitados" }, { level: 3, text: "Proceso formal con criterios documentados" }, { level: 4, text: "Proceso gobernado con revisiones periódicas" }, { level: 5, text: "Gobernanza avanzada con análisis predictivo para priorización" } ] },
+                        { id: 34, text: "¿Existe un marco formal para gestión de riesgos digitales?", options: [ { level: 1, text: "No existe gestión formal de riesgos" }, { level: 2, text: "Gestión de riesgos básica" }, { level: 3, text: "Marco de riesgos documentado" }, { level: 4, text: "Gestión integral de riesgos digitales" }, { level: 5, text: "Gestión predictiva de riesgos con monitoreo continuo" } ] }
+                    ]
+                },
+                // DIMENSIÓN 10: COHERENCIA SISTÉMICA
+                {
+                    name: "Coherencia Sistémica",
+                    weight: 0.06,
+                    questions: [
+                        { id: 35, text: "¿Existe coherencia entre la **Estrategia Digital** declarada y las **Competencias** del personal (¿tiene el talento las habilidades para ejecutar la estrategia?)?", options: [ { level: 1, text: "Incoherencia alta, hay una brecha crítica de talento para la estrategia" }, { level: 2, text: "Coherencia baja, la capacitación es reactiva o insuficiente" }, { level: 3, text: "Coherencia moderada, planes de formación y estrategia están parcialmente alineados" }, { level: 4, text: "Buena coherencia, los planes de talento se ajustan continuamente a la estrategia" }, { level: 5, text: "Coherencia perfecta, el talento es un habilitador proactivo de la estrategia digital" } ] },
+                        { id: 36, text: "¿La **Arquitectura Tecnológica** actual soporta la **Agilidad Operacional** requerida (¿la tecnología permite iterar procesos rápidamente?)?", options: [ { level: 1, text: "No, la tecnología legacy es el principal cuello de botella de la agilidad" }, { level: 2, text: "Parcialmente, la agilidad se limita a nuevas iniciativas, no a sistemas core" }, { level: 3, text: "Soporte moderado, la infraestructura está migrando a ser más flexible" }, { level: 4, text: "Alto soporte, la arquitectura cloud-first impulsa la agilidad operativa" }, { level: 5, text: "Soporte total, arquitectura de microservicios diseñada para iteración continua" } ] },
+                        { id: 37, text: "¿Existe alineación entre los **Procesos** operativos y la promesa de **Experiencia del Cliente** (¿los workflows internos impiden la experiencia omnicanal ideal?)?", options: [ { level: 1, text: "Incoherencia total, los silos operativos dañan la experiencia del cliente" }, { level: 2, text: "Baja alineación, hay fricciones notables entre canales (offline/digital)" }, { level: 3, text: "Alineación moderada, los procesos front-office están optimizados, el back-office no" }, { level: 4, text: "Buena alineación, los procesos están diseñados pensando en el viaje del cliente" }, { level: 5, text: "Alineación perfecta, los procesos se rediseñan continuamente para optimizar la experiencia seamless" } ] },
+                        { id: 38, text: "¿En qué medida la **Gobernanza Digital** (liderazgo/decisión) se basa en la **Analítica de Datos** disponible (¿se usan los datos para tomar decisiones de inversión y priorización?)?", options: [ { level: 1, text: "La gobernanza es por intuición/política, sin datos como factor determinante" }, { level: 2, text: "Los datos son considerados, pero la gobernanza no está formalmente basada en ellos" }, { level: 3, text: "La gobernanza usa reportes descriptivos para la toma de decisiones" }, { level: 4, text: "La gobernanza está basada en modelos predictivos y KPIs digitales clave" }, { level: 5, text: "Gobernanza totalmente basada en evidencia analítica" } ] }
+                    ]
+                },
+                // DIMENSIÓN 11: DISEÑO Y ESTRUCTURA ORGANIZACIONAL
+                {
+                    name: "Diseño y Estructura",
+                    weight: 0.08, 
+                    questions: [
+                        { id: 39, text: "Modelos Operacionales: ¿La organización ha migrado de estructuras funcionales a modelos operativos basados en **Equipos Multidisciplinarios** centrados en el flujo de valor?", options: [ { level: 1, text: "Estructura jerárquica pura, fuerte enfoque funcional" }, { level: 2, text: "Estructura con equipos de prueba limitados en áreas no core" }, { level: 3, text: "Estructura híbrida con áreas core operando en equipos de producto" }, { level: 4, text: "La mayoría de los equipos operan en estructuras multidisciplinarias con enfoque en el valor" }, { level: 5, text: "El modelo operativo de toda la organización está diseñado para el flujo de valor continuo" } ] },
+                        { id: 40, text: "Toma de Decisiones y Descentralización: ¿Qué tan descentralizada está la toma de decisiones, permitiendo a los equipos tomar decisiones técnicas y de negocio con autonomía?", options: [ { level: 1, text: "Toda decisión debe ser centralizada y aprobada por la alta dirección" }, { level: 2, text: "Se permite la toma de decisiones tácticas bajo supervisión estricta" }, { level: 3, text: "Descentralización de decisiones operativas con un marco de gobernanza claro" }, { level: 4, text: "Alto grado de autonomía delegada a líderes de equipo para optimizar resultados" }, { level: 5, text: "La toma de decisiones es impulsada por el equipo, con el liderazgo fijando la visión y los límites" } ] },
+                        { id: 41, text: "Asignación de Roles Clave: ¿Los roles se definen por capacidades digitales (ej. Especialistas en Datos, Arquitectos Digitales) o siguen la estructura de cargos tradicional?", options: [ { level: 1, text: "Los roles siguen la estructura de cargos tradicionales, sin roles digitales especializados" }, { level: 2, text: "Roles digitales asignados ad-hoc, sin rutas de carrera formales" }, { level: 3, text: "Se han formalizado roles digitales clave, pero conviven con la estructura tradicional" }, { level: 4, text: "Definición de roles basada en competencias digitales, con gestión de talento dedicada" }, { level: 5, text: "La estructura de la organización se basa enteramente en el flujo de valor impulsado por roles clave" } ] }
+                    ]
+                }
+            ],
+            scoringRanges: [
+                { level: 1, name: "Inicial / Escéptico", min: 0, max: 20, description: "Ausencia de estrategia digital formalizada, iniciativas fragmentadas y reactivas. Crecimiento de ingresos bajo el promedio." },
+                { level: 2, name: "Emergente / Adoptante", min: 21, max: 40, description: "Estrategia digital en desarrollo, inversiones iniciales, experimentación con soluciones digitales. Crecimiento de ingresos ligeramente bajo el promedio." },
+                { level: 3, name: "Definido / Conectado", min: 41, max: 60, description: "Estrategia documentada, procesos estandarizados, comunicación efectiva entre departamentos. Crecimiento de ingresos ligeramente por encima del promedio." },
+                { level: 4, name: "Gestionado / Avanzado", min: 61, max: 80, description: "Decisiones basadas en analítica, tecnologías emergentes embebidas, talento especializado. Crecimiento de ingresos y rentabilidad superior al promedio." },
+                { level: 5, name: "Optimizado / Transformado", min: 81, max: 100, description: "Transformación digital integrada en ADN organizacional, liderazgo de mercado, innovación sostenida. Crecimiento superior al 20%." }
+            ]
+        };
+
+        // Application state
+        let state = {
+            organizationName: '',
+            currentQuestionIndex: 0,
+            answers: {},
+            allQuestions: [],
+            customWeights: {} 
+        };
+        
+        // --- WEIGHT MANAGEMENT FUNCTIONS ---
+
+        function initializeWeights() {
+            state.customWeights = {};
+            assessmentData.dimensions.forEach(dim => {
+                state.customWeights[dim.name] = Math.round(dim.weight * 100);
+            });
+            renderWeightScreen();
+            checkTotalWeight(); 
+        }
+
+        function renderWeightScreen() {
+            const container = document.getElementById('weightListContainer');
+            container.innerHTML = '';
+
+            assessmentData.dimensions.forEach(dim => {
+                const weightItem = document.createElement('div');
+                weightItem.className = 'weight-item';
+                weightItem.innerHTML = `
+                    <span>${dim.name}</span>
+                    <input type="number" 
+                           id="weight-${dim.name.replace(/\s/g, '')}" 
+                           class="weight-input" 
+                           value="${state.customWeights[dim.name]}" 
+                           min="0" 
+                           max="100" 
+                           step="1"
+                           oninput="updateCustomWeight(this, '${dim.name}')">
+                `;
+                container.appendChild(weightItem);
+            });
+        }
+
+        function updateCustomWeight(input, dimName) {
+            let value = parseInt(input.value);
+            if (isNaN(value) || value < 0) {
+                value = 0;
+            }
+            if (value > 100) {
+                value = 100;
+            }
+            
+            input.value = value;
+            state.customWeights[dimName] = value;
+            
+            checkTotalWeight();
+        }
+
+        function checkTotalWeight() {
+            let total = 0;
+            Object.values(state.customWeights).forEach(weight => {
+                total += weight;
+            });
+
+            document.getElementById('currentTotalWeight').textContent = total;
+            const errorSpan = document.getElementById('weightError');
+            const startBtn = document.getElementById('startAssessmentBtn');
+
+            if (total === 100) {
+                errorSpan.style.display = 'none';
+                document.getElementById('weightSummary').style.background = 'rgba(127, 176, 105, 0.1)'; 
+                startBtn.disabled = false;
+            } else {
+                errorSpan.style.display = 'inline';
+                document.getElementById('weightSummary').style.background = 'rgba(192, 21, 47, 0.1)'; 
+                startBtn.disabled = true;
+            }
+        }
+
+        function goToWeightScreen() {
+            const orgName = document.getElementById('organizationName').value.trim();
+            if (!orgName) {
+                alert('Por favor ingrese el nombre de su organización');
+                return;
+            }
+            state.organizationName = orgName;
+            
+            // Llama a initializeWeights y luego muestra la pantalla
+            initializeWeights();
+            showScreen('weightScreen');
+        }
+
+
+        // --- ASSESSMENT AND RESULTS FUNCTIONS ---
+
+        // Flatten all questions
+        function initializeQuestions() {
+            state.allQuestions = [];
+            assessmentData.dimensions.forEach((dimension, dimIndex) => {
+                dimension.questions.forEach(question => {
+                    state.allQuestions.push({
+                        ...question,
+                        dimensionName: dimension.name,
+                        dimensionIndex: dimIndex
+                    });
+                });
+            });
+        }
+
+        // Start assessment
+        function startAssessment() {
+            if (document.getElementById('startAssessmentBtn').disabled) {
+                return;
+            }
+            
+            // Apply custom weights to assessmentData for calculation
+            assessmentData.dimensions.forEach(dim => {
+                dim.weight = state.customWeights[dim.name] / 100; // Convert percentage back to decimal
+            });
+
+            state.currentQuestionIndex = 0;
+            state.answers = {};
+            
+            initializeQuestions();
+            showScreen('assessmentScreen');
+            renderQuestion();
+        }
+
+        // Show screen
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        // Render current question
+        function renderQuestion() {
+            const question = state.allQuestions[state.currentQuestionIndex];
+            const totalQuestions = state.allQuestions.length;
+            const progress = ((state.currentQuestionIndex + 1) / totalQuestions) * 100;
+            
+            // Update progress
+            document.getElementById('progressText').textContent = `Pregunta ${state.currentQuestionIndex + 1} de ${totalQuestions}`;
+            document.getElementById('dimensionText').textContent = question.dimensionName;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            
+            // Render question
+            const container = document.getElementById('questionContainer');
+            container.innerHTML = `
+                <div class="dimension-badge">${question.dimensionName}</div>
+                <div class="question-text">${question.text}</div>
+                <div class="options">
+                    ${question.options.map(option => `
+                        <div class="option level-${option.level}">
+                            <input type="radio" 
+                                   id="option-${question.id}-${option.level}" 
+                                   name="answer-${question.id}" 
+                                   value="${option.level}"
+                                   ${state.answers[question.id] === option.level ? 'checked' : ''}>
+                            <label for="option-${question.id}-${option.level}">
+                                <span class="level-indicator">Nivel ${option.level}</span>
+                                ${option.text}
+                            </label>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = state.currentQuestionIndex === 0;
+            const nextBtn = document.getElementById('nextBtn');
+            if (state.currentQuestionIndex === totalQuestions - 1) {
+                nextBtn.textContent = 'Ver Resultados';
+            } else {
+                nextBtn.textContent = 'Siguiente →';
+            }
+        }
+
+        // Previous question
+        function previousQuestion() {
+            if (state.currentQuestionIndex > 0) {
+                saveCurrentAnswer();
+                state.currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        // Next question
+        function nextQuestion() {
+            const currentQuestionId = state.allQuestions[state.currentQuestionIndex].id;
+            const selectedOption = document.querySelector(`input[name="answer-${currentQuestionId}"]:checked`);
+            
+            if (!selectedOption) {
+                alert('Por favor seleccione una opción antes de continuar');
+                return;
+            }
+            
+            saveCurrentAnswer();
+            
+            if (state.currentQuestionIndex < state.allQuestions.length - 1) {
+                state.currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                // If the last question is answered, show the Lead Capture Screen
+                goToLeadCaptureScreen();
+            }
+        }
+
+        // Save current answer
+        function saveCurrentAnswer() {
+            const currentQuestionId = state.allQuestions[state.currentQuestionIndex].id;
+            const selectedOption = document.querySelector(`input[name="answer-${currentQuestionId}"]:checked`);
+            
+            if (selectedOption) {
+                state.answers[currentQuestionId] = parseInt(selectedOption.value);
+            }
+        }
+
+        // NEW: Function to navigate to Lead Capture Screen
+        function goToLeadCaptureScreen() {
+            // 1. Pass the organization name to the hidden field in the form
+            document.getElementById('hiddenOrganizationNameSubmit').value = state.organizationName;
+
+            // 2. Calculate results (including the score)
+            const results = calculateResults();
+            
+            // 3. Prepare full evaluation data (JSON string) for submission to the extra field
+            const evaluationData = {
+                organization: state.organizationName,
+                overall_score: results.overallScore,
+                maturity_level: results.maturityLevel.name,
+                scores_by_dimension: results.dimensionScores,
+                answers_raw: state.answers,
+                weights_used: state.customWeights
+            };
+
+            // 4. Set the JSON string to the hidden field
+            document.getElementById('hiddenEvaluationData').value = JSON.stringify(evaluationData);
+
+
+            showScreen('leadCaptureScreen');
+            
+            // Set up form submission handler *only* for the Lead Capture Screen
+            document.getElementById('leadForm').onsubmit = function(event) {
+                event.preventDefault(); 
+                validateAndSubmitLeadForm(this);
+            };
+        }
+
+        // NEW: Function to validate and submit the Lead Capture Form
+        function validateAndSubmitLeadForm(form) {
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const companyName = document.getElementById('companyName').value.trim();
+            const errorElement = document.getElementById('formError');
+
+            if (!fullName || !email || !companyName) {
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+
+            // 1. Ejecutar el cálculo y mostrar los resultados INMEDIATAMENTE
+            const results = calculateResults();
+            displayResults(results);
+            showScreen('resultsScreen');
+
+            // 2. Preparar y Enviar los datos en segundo plano (AJAX/XHR)
+            
+            // Construye el objeto FormData con los campos del formulario
+            const dataToSubmit = new FormData(form);
+
+            // Crea un objeto URLSearchParams para serializar los datos correctamente
+            const params = new URLSearchParams();
+            for (const [key, value] of dataToSubmit.entries()) {
+                params.append(key, value);
+            }
+
+            const xhr = new XMLHttpRequest();
+            // El action debe ser TU_URL_DEL_SERVICIO_DE_FORMULARIOS
+            xhr.open('POST', form.action, true); 
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            
+            xhr.onload = function() {
+                if (xhr.status === 200 || xhr.status === 201 || xhr.status === 204) {
+                    console.log("Datos de leads enviados a servicio externo con éxito.");
+                } else {
+                    console.error("Error al enviar datos de leads al servicio externo. Status: " + xhr.status);
+                }
+            };
+            
+            xhr.send(params.toString());
+            
+            return false; // Evita la redirección del formulario nativo
+        }
+
+
+        // --- CALCULATION AND RENDERING FUNCTIONS --- 
+
+        function calculateResults() {
+            const dimensionScores = {};
+            
+            const totalWeight = assessmentData.dimensions.reduce((sum, dim) => sum + dim.weight, 0);
+
+            assessmentData.dimensions.forEach((dimension, dimIndex) => {
+                let totalScore = 0;
+                let questionCount = 0;
+                
+                const dimQuestions = state.allQuestions.filter(q => q.dimensionName === dimension.name);
+
+                dimQuestions.forEach(question => {
+                    if (state.answers[question.id]) {
+                        totalScore += state.answers[question.id];
+                        questionCount++;
+                    }
+                });
+                
+                const avgScore = questionCount > 0 ? totalScore / questionCount : 0;
+                const normalizedScore = (avgScore / 5) * 100; 
+                
+                dimensionScores[dimension.name] = {
+                    score: normalizedScore,
+                    weight: dimension.weight,
+                    rawAverage: avgScore
+                };
+            });
+            
+            let overallScore = 0;
+            
+            Object.keys(dimensionScores).forEach(dimName => {
+                const dim = dimensionScores[dimName];
+                overallScore += dim.score * dim.weight; 
+            });
+            
+            if (totalWeight > 0.99 && totalWeight < 1.01) {
+            } else if (totalWeight > 0) {
+                 overallScore = (overallScore / totalWeight);
+            }
+            
+            let maturityLevel = assessmentData.scoringRanges[0];
+            for (const range of assessmentData.scoringRanges) {
+                if (overallScore >= range.min && overallScore <= range.max) {
+                    maturityLevel = range;
+                    break;
+                }
+            }
+            
+            return {
+                overallScore: Math.round(overallScore),
+                maturityLevel,
+                dimensionScores
+            };
+        }
+
+        // Display results (Rest of the display functions remain the same)
+        function displayResults(results) {
+            document.getElementById('organizationNameDisplay').textContent = state.organizationName;
+            document.getElementById('overallScore').textContent = results.overallScore;
+            
+            const badge = document.getElementById('maturityLevelBadge');
+            badge.textContent = `Nivel ${results.maturityLevel.level}: ${results.maturityLevel.name}`;
+            badge.style.background = `var(--color-level-${results.maturityLevel.level})`;
+            
+            renderRadarChart(results.dimensionScores);
+            renderBarChart(results.dimensionScores);
+            renderDimensionCards(results.dimensionScores);
+            renderInsights(results.dimensionScores);
+            renderRecommendations(results);
+        }
+
+        // Rendering functions (Radar, Bar, Cards, Insights, Recommendations) - (Kept for brevity, assume they are present)
+        
+        function renderRadarChart(dimensionScores) {
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            if (window.radarChartInstance) {
+                window.radarChartInstance.destroy();
+            }
+            const labels = Object.keys(dimensionScores);
+            const data = labels.map(label => dimensionScores[label].score);
+            
+            window.radarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Puntuación Actual',
+                        data: data,
+                        backgroundColor: 'rgba(33, 128, 141, 0.2)',
+                        borderColor: 'rgba(33, 128, 141, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(33, 128, 141, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(33, 128, 141, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        r: {
+                            angleLines: { display: true },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: { stepSize: 20 }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function renderBarChart(dimensionScores) {
+            const ctx = document.getElementById('barChart').getContext('2d');
+            if (window.barChartInstance) {
+                window.barChartInstance.destroy();
+            }
+            const labels = Object.keys(dimensionScores);
+            const data = labels.map(label => dimensionScores[label].score);
+            const colors = data.map(score => {
+                if (score <= 20) return '#C01527';
+                if (score <= 40) return '#E68161';
+                if (score <= 60) return '#D2BA4C';
+                if (score <= 80) return '#7FB069';
+                return '#2D7D46';
+            });
+            
+            window.barChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Puntuación',
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    indexAxis: 'y',
+                    scales: {
+                        x: { beginAtZero: true, max: 100 }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+        
+        function renderDimensionCards(dimensionScores) {
+            const container = document.getElementById('dimensionScores');
+            container.innerHTML = '';
+            
+            Object.keys(dimensionScores).forEach(dimName => {
+                const dim = dimensionScores[dimName];
+                const score = Math.round(dim.score);
+                let level = 'Inicial';
+                let color = 'var(--color-level-1)';
+                let levelNum = 1;
+                
+                if (score > 80) { level = 'Optimizado'; color = 'var(--color-level-5)'; levelNum = 5;
+                } else if (score > 60) { level = 'Gestionado'; color = 'var(--color-level-4)'; levelNum = 4;
+                } else if (score > 40) { level = 'Definido'; color = 'var(--color-level-3)'; levelNum = 3;
+                } else if (score > 20) { level = 'Emergente'; color = 'var(--color-level-2)'; levelNum = 2; }
+                
+                const card = document.createElement('div');
+                card.className = 'dimension-card';
+                card.innerHTML = `
+                    <h4>${dimName}</h4>
+                    <div class="dimension-score-bar">
+                        <div class="dimension-score-fill" style="width: ${score}%; background: ${color};"></div>
+                    </div>
+                    <div class="dimension-score-text">${score}/100 - Nivel ${levelNum} (${level})</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderInsights(dimensionScores) {
+            const scores = Object.entries(dimensionScores)
+                .map(([name, data]) => ({ name, score: data.score }))
+                .sort((a, b) => b.score - a.score);
+            
+            const strengthsList = document.getElementById('strengthsList');
+            strengthsList.innerHTML = '';
+            scores.slice(0, 3).forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} (${Math.round(item.score)}/100)`;
+                strengthsList.appendChild(li);
+            });
+            
+            const improvementsList = document.getElementById('improvementsList');
+            improvementsList.innerHTML = '';
+            scores.slice(-3).reverse().forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} (${Math.round(item.score)}/100)`;
+                improvementsList.appendChild(li);
+            });
+        }
+
+        function renderRecommendations(results) {
+            const container = document.getElementById('recommendationsList');
+            container.innerHTML = '';
+            
+            const recommendations = getRecommendations(results);
+            
+            recommendations.forEach((rec, index) => {
+                const div = document.createElement('div');
+                div.className = 'recommendation-item';
+                div.innerHTML = `
+                    <h4>${index + 1}. ${rec.title}</h4>
+                    <p>${rec.description}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function getRecommendations(results) {
+            const scores = Object.entries(results.dimensionScores)
+                .map(([name, data]) => ({ name, score: data.score }))
+                .sort((a, b) => a.score - b.score);
+            
+            const recommendations = [];
+            const level = results.maturityLevel.level;
+            
+            const topPriorities = scores.slice(0, 3);
+            
+            topPriorities.forEach(priority => {
+                let rec = {
+                    title: `Fortalecer: ${priority.name}`,
+                    description: ''
+                };
+                
+                if (level === 1 || priority.score <= 20) {
+                    rec.description = `Su organización está en etapa inicial o baja en ${priority.name}. Prioridad: **Establecer Fundamentos**. Desarrolle una estrategia documentada (si falta), asigne recursos iniciales y establezca métricas de seguimiento básicas.`;
+                } else if (level === 2 || priority.score <= 40) {
+                    rec.description = `En etapa emergente, enfóquese en escalar iniciativas en ${priority.name}. Identifique quick wins, construya casos de negocio sólidos y demuestre valor temprano para ganar momentum organizacional.`;
+                } else if (level === 3 || priority.score <= 60) {
+                    rec.description = `Con procesos definidos, el siguiente paso es optimizar ${priority.name}. **Busque la Integración**. Implemente plataformas y desarrolle capacidades analíticas avanzadas para fortalecer la coherencia.`;
+                } else if (level === 4 || priority.score <= 80) {
+                    rec.description = `Su organización está avanzada. Para elevar ${priority.name}, **Explore la Disrupción**. Explore tecnologías emergentes (IA), desarrolle capacidades predictivas y establezca mecanismos de innovación continua.`;
+                } else { 
+                    rec.description = `En nivel optimizado, **Mantenga el Liderazgo** en ${priority.name} mediante experimentación disruptiva, colaboración ecosistémica y renovación continua de capacidades digitales. Priorice la resiliencia.`;
+                }
+                
+                recommendations.push(rec);
+            });
+            
+            return recommendations;
+        }
+
+        // Restart assessment
+        function restartAssessment() {
+            state = {
+                organizationName: '',
+                currentQuestionIndex: 0,
+                answers: {},
+                allQuestions: [],
+                customWeights: {}
+            };
+            document.getElementById('organizationName').value = '';
+            showScreen('welcomeScreen');
+        }
+
+        // Initialize on load
+        initializeQuestions();
+    </script>
+</body>
+</html>
