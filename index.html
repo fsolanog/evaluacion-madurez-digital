@@ -836,7 +836,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus,
                 <p class="subtitle">¡Felicidades! Ha completado la evaluación. Para acceder a su **Reporte de Madurez Digital** personalizado (incluyendo gráficos y hoja de ruta de 3 prioridades), por favor complete el formulario a continuación.</p>
                 
                 <form id="leadForm" class="capture-form" action="/" method="POST" data-netlify="true">
-    </form>
                     
                     <input type="hidden" name="evaluation_data_json" id="hiddenEvaluationData">
                     
@@ -1244,11 +1243,13 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus,
             
             saveCurrentAnswer();
             
-            if (state.currentQuestionIndex < state.allQuestions.length - 1) {
+            const totalQuestions = state.allQuestions.length;
+
+            if (state.currentQuestionIndex < totalQuestions - 1) {
                 state.currentQuestionIndex++;
                 renderQuestion();
             } else {
-                // If the last question is answered, show the Lead Capture Screen
+                // Si es la última pregunta, vamos a la pantalla de captura
                 goToLeadCaptureScreen();
             }
         }
@@ -1315,7 +1316,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus,
 
             // 2. Preparar y Enviar los datos en segundo plano (AJAX/XHR)
             
-            // Construye el objeto FormData con los campos del formulario
             const dataToSubmit = new FormData(form);
 
             // Crea un objeto URLSearchParams para serializar los datos correctamente
@@ -1325,15 +1325,15 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus,
             }
 
             const xhr = new XMLHttpRequest();
-            // El action debe ser TU_URL_DEL_SERVICIO_DE_FORMULARIOS
+            // action="/": Netlify forms espera una URL relativa
             xhr.open('POST', form.action, true); 
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             
             xhr.onload = function() {
                 if (xhr.status === 200 || xhr.status === 201 || xhr.status === 204) {
-                    console.log("Datos de leads enviados a servicio externo con éxito.");
+                    console.log("Datos de leads enviados a Netlify Forms con éxito.");
                 } else {
-                    console.error("Error al enviar datos de leads al servicio externo. Status: " + xhr.status);
+                    console.error("Error al enviar datos de leads a Netlify. Status: " + xhr.status);
                 }
             };
             
