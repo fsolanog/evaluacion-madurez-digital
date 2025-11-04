@@ -837,6 +837,8 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus,
                 
                 <form id="leadForm" class="capture-form" action="/" method="POST" data-netlify="true">
                     
+                    <input type="hidden" name="form-name" value="leadForm" />
+
                     <input type="hidden" name="evaluation_data_json" id="hiddenEvaluationData">
                     
                     <input type="hidden" name="organization_name" id="hiddenOrganizationNameSubmit">
@@ -1249,7 +1251,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus,
                 state.currentQuestionIndex++;
                 renderQuestion();
             } else {
-                // Si es la última pregunta, vamos a la pantalla de captura
+                // Si es la última pregunta (pregunta 41), vamos a la pantalla de captura
                 goToLeadCaptureScreen();
             }
         }
@@ -1325,7 +1327,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus,
             }
 
             const xhr = new XMLHttpRequest();
-            // action="/": Netlify forms espera una URL relativa
+            // action="/" es lo que Netlify Forms detecta
             xhr.open('POST', form.action, true); 
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             
